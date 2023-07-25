@@ -20,10 +20,12 @@ _C.MODEL.NAME = 'seg_hrnet'   #'seg_hrnet'
 _C.MODEL.PRETRAINED = ''
 _C.MODEL.EXTRA = CN(new_allowed=True)
 
+
 def update_config(cfg, args):
     cfg.defrost()
     cfg.merge_from_file(args)
     cfg.freeze()
+
 
 if __name__ == '__main__':
     import sys

@@ -5,6 +5,7 @@ import numpy as np
 import cv2
 import os
 import random
+import torch.nn as nn
 
 
 def save_results(input_img, gt_data, density_map, output_dir, fname='results.png'):
@@ -43,12 +44,12 @@ def save_checkpoint(state, visi, is_best, save_path, filename='checkpoint.pth'):
     if is_best:
         shutil.copyfile('./' + str(save_path) + '/' + filename, './' + str(save_path) + '/' + 'model_best.pth')
 
-    for i in range(len(visi)):
-        img = visi[i][0]
-        output = visi[i][1]
-        target = visi[i][2]
-        fname = visi[i][3]
-        save_results(img, target, output, str(save_path), fname[0])
+    # for i in range(len(visi)):
+    #     img = visi[i][0]
+    #     output = visi[i][1]
+    #     target = visi[i][2]
+    #     fname = visi[i][3]
+    #     save_results(img, target, output, str(save_path), fname[0])
 
 
 def setup_seed(seed):
@@ -60,3 +61,11 @@ def setup_seed(seed):
     random.seed(seed)
     torch.backends.cudnn.deterministic = True
     torch.backends.cudnn.benchmark = False  # 输入固定情况下用true
+
+
+def freeze_bn(model):
+    for m in filter(lambda m: isinstance(m, nn.BatchNorm2d), model.modules()):
+        m.eval()
+        for param in m.parameters():
+            param.requires_grad = False
+    return model

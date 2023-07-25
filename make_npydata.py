@@ -5,7 +5,7 @@ if not os.path.exists('./npydata'):
     os.makedirs('./npydata')
 
 '''please set your dataset path'''
-shanghai_root = '/home/dkliang/projects/synchronous/dataset/ShanghaiTech'
+shanghai_root = '/ssd/data/crowd_counting/ShanghaiTech'
 jhu_root = '/home/dkliang/projects/synchronous/dataset/jhu_crowd_v2.0'
 qnrf_root = '/home/dkliang/projects/synchronous/dataset/UCF-QNRF_ECCV18'
 
